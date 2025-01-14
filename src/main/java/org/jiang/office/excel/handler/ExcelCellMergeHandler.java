@@ -29,7 +29,7 @@ public class ExcelCellMergeHandler implements ExcelCellHandler {
                     continue;
                 }
                 Cell emptyCell = sheet.getRow(row).createCell(col);
-                emptyCell.setCellValue(false);
+                emptyCell.setCellValue("");
                 emptyCell.setCellStyle(cell.getCellStyle());
             }
         }

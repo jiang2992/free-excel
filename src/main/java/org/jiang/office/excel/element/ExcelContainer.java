@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import lombok.Getter;
-import lombok.Setter;
 
 /**
  * excel容器
@@ -19,7 +18,6 @@ public abstract class ExcelContainer extends ExcelElement {
     public static final boolean DIRECTION_HORIZONTAL = true;
     public static final boolean DIRECTION_VERTICAL = false;
 
-    @Setter
     private boolean direction = DIRECTION_HORIZONTAL;
 
     @Getter
@@ -47,6 +45,15 @@ public abstract class ExcelContainer extends ExcelElement {
     }
 
     /**
+     * 设置容器的排序方向
+     *
+     * @param direction 排序方向
+     */
+    protected void setDirection(boolean direction) {
+        this.direction = direction;
+    }
+
+    /**
      * 判断当前是否是水平排序
      *
      * @return 是否水平排序
@@ -69,7 +76,7 @@ public abstract class ExcelContainer extends ExcelElement {
      *
      * @param element 子元素
      */
-    public void addElement(ExcelElement element) {
+    protected void addElement(ExcelElement element) {
         if (children == null) {
             children = new ArrayList<>();
         }
@@ -83,7 +90,7 @@ public abstract class ExcelContainer extends ExcelElement {
      *
      * @param elements 子元素
      */
-    public void addElement(ExcelElement... elements) {
+    protected void addElement(ExcelElement... elements) {
         if (children == null) {
             children = new ArrayList<>();
         }

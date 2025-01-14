@@ -63,6 +63,7 @@
         <junit.version>4.13.1</junit.version>
         <e-tools.version>1.1.5</e-tools.version>
         <poi.version>5.2.5</poi.version>
+        <log4j.version>2.23.1</log4j.version>
 
     </properties>
 
@@ -98,6 +99,12 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-scratchpad</artifactId>
             <version>${poi.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j.version}</version>
         </dependency>
 
     </dependencies>
