@@ -41,12 +41,13 @@ public class ExcelNumberCell extends ExcelCell {
     @Override
     public void updateCell(Cell cell, DataFormat dataFormat) {
         Workbook workbook = cell.getRow().getSheet().getWorkbook();
-        CellStyle cellStyle = cell.getCellStyle();
-        if (cellStyle == null) {
-            cellStyle = workbook.createCellStyle();
+        CellStyle cellStyle = workbook.createCellStyle();
+        if (cell.getCellStyle() != null) {
+            cellStyle.cloneStyleFrom(cell.getCellStyle());
         }
-        cellStyle.setDataFormat(dataFormat.getFormat(getFormatStr()));
+        cell.setCellStyle(cellStyle);
         cell.setCellValue(this.number);
+        cellStyle.setDataFormat(dataFormat.getFormat(getFormatStr()));
     }
 
     private String getFormatStr() {

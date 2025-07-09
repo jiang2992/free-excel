@@ -33,9 +33,10 @@ public class ExcelTextCell extends ExcelCell {
         CellStyle cellStyle = cell.getCellStyle();
         if (cellStyle == null) {
             cellStyle = workbook.createCellStyle();
+            cell.setCellStyle(cellStyle);
         }
         cellStyle.setDataFormat(dataFormat.getFormat("@"));
-        cell.setCellValue( this.text );
+        cell.setCellValue(this.text);
     }
 
 }
