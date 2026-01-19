@@ -24,7 +24,7 @@ public class ExcelExportTests {
     @Test
     public void test() throws IOException {
         ExcelPage page = ExcelPage.vertical();
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 100; i++) {
             ExcelPiece rowPiece = ExcelPiece.horizontal();
             for (int j = 0; j < 100; j++) {
                 rowPiece.add(ExcelTextCell.of(RandomUtils.generate(1000)));

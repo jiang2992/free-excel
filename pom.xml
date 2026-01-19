@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>top.efcloud</groupId>
     <artifactId>free-excel</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 
     <!-- 项目信息 -->
     <name>FreeExcel</name>
@@ -61,9 +61,9 @@
         <!-- 依赖版本 -->
         <lombok.version>1.18.24</lombok.version>
         <junit.version>4.13.1</junit.version>
-        <e-tools.version>1.1.5</e-tools.version>
+        <e-tools.version>1.1.7</e-tools.version>
         <poi.version>5.2.5</poi.version>
-        <log4j.version>2.23.1</log4j.version>
+        <slf4j.version>2.0.9</slf4j.version>
 
     </properties>
 
@@ -102,9 +102,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>${log4j.version}</version>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
         </dependency>
 
     </dependencies>
