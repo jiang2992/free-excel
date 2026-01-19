@@ -50,7 +50,7 @@ public class ExcelNumberCell extends ExcelCell {
         cellStyle.setDataFormat(dataFormat.getFormat(getFormatStr()));
     }
 
-    private String getFormatStr() {
+    protected String getFormatStr() {
         StringBuilder sb = new StringBuilder("0");
         if (precision <= 0) {
             return sb.toString();
