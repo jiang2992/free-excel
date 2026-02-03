@@ -23,8 +23,8 @@ public class ExcelTextCell extends ExcelCell {
         this.text = text;
     }
 
-    public static ExcelTextCell of(String content) {
-        return new ExcelTextCell(content);
+    public static ExcelTextCell of(String text) {
+        return new ExcelTextCell(text);
     }
 
     @Override

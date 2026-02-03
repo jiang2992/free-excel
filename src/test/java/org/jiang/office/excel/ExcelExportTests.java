@@ -1,16 +1,18 @@
 package org.jiang.office.excel;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.nio.file.Files;
+import org.jiang.office.excel.element.ExcelImageCell;
 import org.jiang.office.excel.element.ExcelPage;
 import org.jiang.office.excel.element.ExcelPiece;
 import org.jiang.office.excel.element.ExcelTextCell;
 import org.jiang.office.excel.exporter.ExcelSimpleExporter;
+import org.jiang.office.excel.style.ExcelCellStyle;
 import org.jiang.tools.text.RandomUtils;
-import org.jiang.tools.text.StringUtils;
 import org.junit.Test;
 
 /**
@@ -23,21 +25,43 @@ public class ExcelExportTests {
 
     @Test
     public void test() throws IOException {
+        ExcelCellStyle style = new ExcelCellStyle().width(6000).height(120).horizontalCenter().verticalCenter();
         ExcelPage page = ExcelPage.vertical();
-        for (int i = 0; i < 100; i++) {
+        page.style(style);
+        for (int i = 0; i < 10; i++) {
             ExcelPiece rowPiece = ExcelPiece.horizontal();
-            for (int j = 0; j < 100; j++) {
-                rowPiece.add(ExcelTextCell.of(RandomUtils.generate(1000)));
+            for (int j = 0; j < 10; j++) {
+                rowPiece.add(ExcelTextCell.of(RandomUtils.generate(10)));
             }
             page.add(rowPiece);
         }
+
+        byte[] bytes = getImageBytesFromURL("https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png");
+        ExcelPiece rowPiece = ExcelPiece.horizontal();
+        for (int j = 0; j < 10; j++) {
+            rowPiece.add(ExcelImageCell.of(bytes));
+        }
+        page.add(rowPiece);
+
         File file = new File("test.xlsx");
-        if(file.exists()) {
+        if (file.exists()) {
             file.delete();
         }
         file.createNewFile();
         ExcelSimpleExporter.of(page).write(Files.newOutputStream(file.toPath()));
     }
 
+    public static byte[] getImageBytesFromURL(String imageUrl) throws IOException {
+        URL url = new URL(imageUrl);
+        InputStream inputStream = url.openStream();
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[4096];
+        int bytesRead;
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+            byteArrayOutputStream.write(buffer, 0, bytesRead);
+        }
+        inputStream.close();
+        return byteArrayOutputStream.toByteArray();
+    }
 
 }
