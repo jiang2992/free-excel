@@ -6,7 +6,7 @@
 
     <groupId>top.efcloud</groupId>
     <artifactId>free-excel</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
 
     <!-- 项目信息 -->
     <name>FreeExcel</name>
@@ -61,7 +61,7 @@
         <!-- 依赖版本 -->
         <lombok.version>1.18.24</lombok.version>
         <junit.version>4.13.1</junit.version>
-        <e-tools.version>1.1.7</e-tools.version>
+        <e-tools.version>1.1.8</e-tools.version>
         <poi.version>5.2.5</poi.version>
         <slf4j.version>2.0.9</slf4j.version>
 

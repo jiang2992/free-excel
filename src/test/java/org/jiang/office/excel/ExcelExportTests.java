@@ -12,6 +12,7 @@ import org.jiang.office.excel.element.ExcelPiece;
 import org.jiang.office.excel.element.ExcelTextCell;
 import org.jiang.office.excel.exporter.ExcelSimpleExporter;
 import org.jiang.office.excel.style.ExcelCellStyle;
+import org.jiang.tools.data.EasyData;
 import org.jiang.tools.text.RandomUtils;
 import org.junit.Test;
 
@@ -36,10 +37,10 @@ public class ExcelExportTests {
             page.add(rowPiece);
         }
 
-        byte[] bytes = getImageBytesFromURL("https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png");
+        EasyData image = EasyData.of(new URL("https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png"));
         ExcelPiece rowPiece = ExcelPiece.horizontal();
         for (int j = 0; j < 10; j++) {
-            rowPiece.add(ExcelImageCell.of(bytes));
+            rowPiece.add(ExcelImageCell.of(image));
         }
         page.add(rowPiece);
 
@@ -49,19 +50,6 @@ public class ExcelExportTests {
         }
         file.createNewFile();
         ExcelSimpleExporter.of(page).write(Files.newOutputStream(file.toPath()));
-    }
-
-    public static byte[] getImageBytesFromURL(String imageUrl) throws IOException {
-        URL url = new URL(imageUrl);
-        InputStream inputStream = url.openStream();
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        byte[] buffer = new byte[4096];
-        int bytesRead;
-        while ((bytesRead = inputStream.read(buffer)) != -1) {
-            byteArrayOutputStream.write(buffer, 0, bytesRead);
-        }
-        inputStream.close();
-        return byteArrayOutputStream.toByteArray();
     }
 
 }

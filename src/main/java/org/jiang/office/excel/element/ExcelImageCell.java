@@ -8,6 +8,7 @@ import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.Drawing;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.jiang.tools.data.EasyData;
 
 /**
  * excel图片单元格
@@ -19,7 +20,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 @Setter
 public class ExcelImageCell extends ExcelCell {
 
-    private byte[] pictureData;
+    private EasyData pictureData;
 
     private int pictureType = Workbook.PICTURE_TYPE_JPEG;
 
@@ -28,8 +29,16 @@ public class ExcelImageCell extends ExcelCell {
     private int dx2 = 0;
     private int dy2 = 0;
 
-    public ExcelImageCell(byte[] pictureData) {
+    public ExcelImageCell(EasyData pictureData) {
         this.pictureData = pictureData;
+    }
+
+    public ExcelImageCell(byte[] pictureData) {
+        this(EasyData.of(pictureData));
+    }
+
+    public static ExcelImageCell of(EasyData pictureData) {
+        return new ExcelImageCell(pictureData);
     }
 
     public static ExcelImageCell of(byte[] pictureData) {
@@ -71,14 +80,15 @@ public class ExcelImageCell extends ExcelCell {
 
     @Override
     public void updateCell(Cell cell, DataFormat dataFormat) {
-        if (this.pictureData == null || this.pictureData.length == 0) {
+        byte[] value = this.pictureData.value();
+        if (value == null || value.length == 0) {
             ExcelTextCell textCell = new ExcelTextCell("[unknown picture]");
             textCell.updateCell(cell, dataFormat);
             return;
         }
         Sheet sheet = cell.getRow().getSheet();
         Workbook workbook = sheet.getWorkbook();
-        int index = workbook.addPicture(this.pictureData, this.pictureType);
+        int index = workbook.addPicture(value, this.pictureType);
         Drawing<?> drawingPatriarch = sheet.getDrawingPatriarch();
         if (drawingPatriarch == null) {
             drawingPatriarch = sheet.createDrawingPatriarch();
@@ -87,6 +97,7 @@ public class ExcelImageCell extends ExcelCell {
         int row = cell.getRowIndex();
         ClientAnchor anchor = drawingPatriarch.createAnchor(dx1, dy1, dx2, dy2, col, row, col + 1, row + 1);
         drawingPatriarch.createPicture(anchor, index);
+        this.pictureData.reset();
     }
 
 }
